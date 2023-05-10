@@ -8,8 +8,23 @@ export class MessagesRepository {
     return messages[id];
   }
 
-  async findAll() {}
+  async findAll() {
+    const contents = await readFile('messages.json', 'utf-8');
+    const messages = JSON.parse(contents);
 
-  async create(message: string) {}
+    return messages;
+  }
+
+  async create(message: string) {
+    const contents = await readFile('messages.json', 'utf-8');
+    const messages = JSON.parse(contents);
+
+    const id = Math.floor(Math.random() * 999);
+    
+    messages[id] = {id, message};
+
+    await writeFile('messages.json', JSON.stringify(messages));
+    return messages[id];
+  }
 
 }
